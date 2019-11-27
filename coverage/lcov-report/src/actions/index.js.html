@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/actions/index.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\index.html">All files</a> / <a href="index.html">src/actions</a> index.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">37.14% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>26/70</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/2</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">5.88% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>2/34</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">38.71% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>24/62</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136</td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">export const FETCH_MOVIES_BEGIN = "FETCH_MOVIES_BEGIN";
+export const FETCH_MOVIES_FAILURE = "FETCH_MOVIES_FAILURE";
+&nbsp;
+export const FETCH_GENRES_SUCCESS = "FETCH_GENRES_SUCCESS";
+export const FETCH_MOVIES_SUCCESS = "FETCH_MOVIES_SUCCESS";
+export const FETCH_NEW_PAGE_SUCCESS = "FETCH_NEW_PAGE_SUCCESS";
+export const FETCH_MOVIE_INFO_SUCCESS = "FETCH_MOVIE_INFO_SUCCESS";
+&nbsp;
+export const FETCH_NOW_PLAYING_SUCCESS = "FETCH_NOW_PLAYING_SUCCESS";
+export const FETCH_MOVIE_CATEGORY_SUCCESS = "FETCH_MOVIE_CATEGORY_SUCCESS";
+&nbsp;
+export const INCREMENT = "INCREMENT";
+export const DECREMENT = "DECREMENT";
+export const RESET = "RESET";
+export const MORE_POSTS = "MORE_POSTS";
+export const RESET_MORE_POSTS = "RESET_MORE_POSTS";
+export const CHANGE_PLACEHOLDER = "CHANGE_PLACEHOLDER";
+&nbsp;
+export const APIKEY = "?api_key=47fcdfc3568c424d39ad5b87c5b3272b";
+export const baseURL = `https://api.themoviedb.org/3/`;
+&nbsp;
+export const fetchBegin = () =&gt; ({
+  type: FETCH_MOVIES_BEGIN
+});
+export const fetchMoviesSuccess = (items, movieGenre) =&gt; ({
+  type: FETCH_MOVIES_SUCCESS,
+  payload: items,
+  movieGenre: movieGenre
+});
+export const fetchNewPageSuccess = <span class="fstat-no" title="function not covered" >it</span>ems =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
+  type: FETCH_NEW_PAGE_SUCCESS,
+  payload: items
+});
+export const fetchMovieInfoSuccess = <span class="fstat-no" title="function not covered" >it</span>ems =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
+  type: FETCH_MOVIE_INFO_SUCCESS,
+  payload: items
+});
+export const fetchMoviesFailure = <span class="fstat-no" title="function not covered" >er</span>ror =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
+  type: FETCH_MOVIES_FAILURE,
+  payload: error
+});
+&nbsp;
+const fetchGenresSuccess = <span class="fstat-no" title="function not covered" >it</span>ems =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
+  type: FETCH_GENRES_SUCCESS,
+  payload: items
+});
+&nbsp;
+export const fetchMovieNowPlayingSuccess = <span class="fstat-no" title="function not covered" >it</span>ems =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
+  type: FETCH_NOW_PLAYING_SUCCESS,
+  payload: items
+});
+&nbsp;
+export const fetchMovieCategorySuccess = <span class="fstat-no" title="function not covered" >it</span>ems =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
+  type: FETCH_MOVIE_CATEGORY_SUCCESS,
+  payload: items
+});
+&nbsp;
+export function <span class="fstat-no" title="function not covered" >fetchMoviesGenresForNavBar(</span>) {
+<span class="cstat-no" title="statement not covered" >  return <span class="fstat-no" title="function not covered" >di</span>spatch =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    dispatch(fetchBegin());</span>
+<span class="cstat-no" title="statement not covered" >    return fetch(baseURL + "genre/list" + APIKEY)</span>
+      .then(handleErrors)
+      .then(<span class="fstat-no" title="function not covered" >re</span>s =&gt; <span class="cstat-no" title="statement not covered" >res.json())</span>
+      .then(<span class="fstat-no" title="function not covered" >it</span>ems =&gt; {
+<span class="cstat-no" title="statement not covered" >        dispatch(fetchGenresSuccess(items));</span>
+<span class="cstat-no" title="statement not covered" >        return items;</span>
+      })
+      .catch(<span class="fstat-no" title="function not covered" >er</span>ror =&gt; <span class="cstat-no" title="statement not covered" >dispatch(fetchMoviesFailure(error)))</span>;
+  };
+}
+&nbsp;
+export function <span class="fstat-no" title="function not covered" >fetchMovieNowPlaying(</span>) {
+<span class="cstat-no" title="statement not covered" >  return <span class="fstat-no" title="function not covered" >di</span>spatch =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    dispatch(fetchBegin());</span>
+<span class="cstat-no" title="statement not covered" >    return fetch(baseURL + "movie/now_playing" + APIKEY)</span>
+      .then(handleErrors)
+      .then(<span class="fstat-no" title="function not covered" >re</span>s =&gt; <span class="cstat-no" title="statement not covered" >res.json())</span>
+      .then(<span class="fstat-no" title="function not covered" >it</span>ems =&gt; {
+<span class="cstat-no" title="statement not covered" >        dispatch(fetchMovieNowPlayingSuccess(items));</span>
+<span class="cstat-no" title="statement not covered" >        return items;</span>
+      })
+      .catch(<span class="fstat-no" title="function not covered" >er</span>ror =&gt; <span class="cstat-no" title="statement not covered" >dispatch(fetchMoviesFailure(error)))</span>;
+  };
+}
+&nbsp;
+export function <span class="fstat-no" title="function not covered" >fetchMovieCategory(</span>category) {
+<span class="cstat-no" title="statement not covered" >  return <span class="fstat-no" title="function not covered" >di</span>spatch =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    dispatch(fetchBegin());</span>
+<span class="cstat-no" title="statement not covered" >    return fetch(baseURL + category + APIKEY)</span>
+      .then(handleErrors)
+      .then(<span class="fstat-no" title="function not covered" >re</span>s =&gt; <span class="cstat-no" title="statement not covered" >res.json())</span>
+      .then(<span class="fstat-no" title="function not covered" >it</span>ems =&gt; {
+<span class="cstat-no" title="statement not covered" >        dispatch(fetchMovieCategorySuccess(items));</span>
+<span class="cstat-no" title="statement not covered" >        return items;</span>
+      })
+      .catch(<span class="fstat-no" title="function not covered" >er</span>ror =&gt; <span class="cstat-no" title="statement not covered" >dispatch(fetchMoviesFailure(error)))</span>;
+  };
+}
+&nbsp;
+export function <span class="fstat-no" title="function not covered" >fetchMoviesByGenre(</span>movieGenre) {
+<span class="cstat-no" title="statement not covered" >  return <span class="fstat-no" title="function not covered" >di</span>spatch =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    dispatch(fetchBegin());</span>
+<span class="cstat-no" title="statement not covered" >    return fetch(</span>
+      baseURL + "discover/movie" + APIKEY + "&amp;with_genres=" + movieGenre.id
+    )
+      .then(handleErrors)
+      .then(<span class="fstat-no" title="function not covered" >re</span>s =&gt; <span class="cstat-no" title="statement not covered" >res.json())</span>
+      .then(<span class="fstat-no" title="function not covered" >it</span>ems =&gt; {
+<span class="cstat-no" title="statement not covered" >        dispatch(fetchMoviesSuccess(items, movieGenre));</span>
+<span class="cstat-no" title="statement not covered" >        return items;</span>
+      })
+      .catch(<span class="fstat-no" title="function not covered" >er</span>ror =&gt; <span class="cstat-no" title="statement not covered" >dispatch(fetchMoviesFailure(error)))</span>;
+  };
+}
+&nbsp;
+export function <span class="fstat-no" title="function not covered" >fetchMovieInfo(</span>movieId) {
+<span class="cstat-no" title="statement not covered" >  return <span class="fstat-no" title="function not covered" >di</span>spatch =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    dispatch(fetchBegin());</span>
+<span class="cstat-no" title="statement not covered" >    return fetch(baseURL + `movie/${movieId}${APIKEY}`)</span>
+      .then(handleErrors)
+      .then(<span class="fstat-no" title="function not covered" >re</span>s =&gt; <span class="cstat-no" title="statement not covered" >res.json())</span>
+      .then(<span class="fstat-no" title="function not covered" >it</span>ems =&gt; {
+<span class="cstat-no" title="statement not covered" >        dispatch(fetchMovieInfoSuccess(items));</span>
+<span class="cstat-no" title="statement not covered" >        return items;</span>
+      })
+      .catch(<span class="fstat-no" title="function not covered" >er</span>ror =&gt; <span class="cstat-no" title="statement not covered" >dispatch(fetchMoviesFailure(error)))</span>;
+  };
+}
+&nbsp;
+function <span class="fstat-no" title="function not covered" >handleErrors(</span>response) {
+<span class="cstat-no" title="statement not covered" >  if (!response.ok) {</span>
+<span class="cstat-no" title="statement not covered" >    throw Error(response.statusText);</span>
+  }
+<span class="cstat-no" title="statement not covered" >  return response;</span>
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Nov 26 2019 11:49:33 GMT+0100 (GMT+01:00)
+</div>
+</div>
+<script src="..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\sorter.js"></script>
+</body>
+</html>
