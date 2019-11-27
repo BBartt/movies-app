@@ -77,7 +77,7 @@ const MoviesDetails = ({ movieInfo }) => {
             <div>Vote Count: {movieInfo.vote_count}</div>
           </section>
           <figcaption className="my-4">{movieInfo.overview}</figcaption>
-          <section class="wrapper">
+          <section className="wrapper">
             <section className="details">
               <h2>Details:</h2>
               <ul>
