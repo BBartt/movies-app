@@ -32,7 +32,9 @@ const Card = ({ movie, dispatch }) => (
     <figcaption>{movie.overview}</figcaption>
 
     <StyledNavLink
-      to={routes.home + `movieDetails/${movie.original_title}`}
+      to={
+        routes.home + `movieDetails/${encodeURIComponent(movie.original_title)}`
+      }
       onClick={() => dispatch(fetchMovieInfo(movie.id))}
     >
       Read More

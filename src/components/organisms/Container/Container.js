@@ -20,7 +20,9 @@ const StyledContainerWrapper = styled.div`
 const StyledArticle = styled.article`
   position: relative;
 
-  &:hover figcaption { opacity: 0.8; }
+  &:hover figcaption {
+    opacity: 0.8;
+  }
 
   &:nth-child(1) {
     grid-column: 1 / 3;
@@ -54,7 +56,6 @@ const StyledArticle = styled.article`
       grid-column: 3 / 5;
       grid-row: 4 / 4;
     }
-
   }
 `;
 
@@ -72,11 +73,12 @@ const StyedFigcaption = styled.figcaption`
   color: black;
   width: 100%;
   opacity: 0;
-
 `;
 
 class Container extends Component {
-  componentDidMount() { this.props.dispatch(fetchMovieNowPlaying()); }
+  componentDidMount() {
+    this.props.dispatch(fetchMovieNowPlaying());
+  }
 
   render() {
     const { movies_now_playing, dispatch } = this.props;
@@ -89,19 +91,18 @@ class Container extends Component {
           {movies_now_playing.slice(0, 5).map(movie => (
             <StyledArticle>
               <NavLink
-                to={routes.home + `movieDetails/${movie.original_title}`}
+                to={
+                  routes.home +
+                  `movieDetails/${encodeURIComponent(movie.original_title)}`
+                }
                 onClick={() => dispatch(fetchMovieInfo(movie.id))}
               >
                 <StyledImg
                   src={(() => {
                     if (movie.backdrop_path) {
-                      return `https://image.tmdb.org/t/p/original/${
-                        movie.backdrop_path
-                      }`;
+                      return `https://image.tmdb.org/t/p/original/${movie.backdrop_path}`;
                     } else if (movie.poster_path) {
-                      return `https://image.tmdb.org/t/p/original/${
-                        movie.poster_path
-                      }`;
+                      return `https://image.tmdb.org/t/p/original/${movie.poster_path}`;
                     } else {
                       return pictures.imageNotFound;
                     }
@@ -110,7 +111,10 @@ class Container extends Component {
                 />
               </NavLink>
               <NavLink
-                to={routes.home + `movieDetails/${movie.original_title}`}
+                to={
+                  routes.home +
+                  `movieDetails/${encodeURIComponent(movie.original_title)}`
+                }
                 onClick={() => dispatch(fetchMovieInfo(movie.id))}
               >
                 <StyedFigcaption>
@@ -121,7 +125,6 @@ class Container extends Component {
             </StyledArticle>
           ))}
         </StyledContainerWrapper>
-
       </StyledWrapper>
     );
   }

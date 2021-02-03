@@ -12,7 +12,7 @@ import Contest from "components/organisms/Contest/Contest";
 import About from "components/organisms/About/About";
 import Contact from "components/organisms/Contact/Contact";
 import Footer from "components/organisms/Footer/Footer";
-import {VerticleButton as ScrollUpButton} from "react-scroll-up-button";
+import { VerticleButton as ScrollUpButton } from "react-scroll-up-button";
 
 const App = () => (
   <HashRouter>
