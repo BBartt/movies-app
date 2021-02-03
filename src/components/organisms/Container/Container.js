@@ -89,7 +89,7 @@ class Container extends Component {
 
         <StyledContainerWrapper>
           {movies_now_playing.slice(0, 5).map(movie => (
-            <StyledArticle>
+            <StyledArticle key={movie.id}>
               <NavLink
                 to={
                   routes.home +

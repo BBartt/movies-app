@@ -53,7 +53,7 @@ const MoviesCards = ({ loading, error, movies, movieGenreNumber, page, dispatch 
   } else {
     return(
       <div className="container-fluid">
-        {movies.map(movie => ( <Card movie={movie} /> ))}
+        {movies.map((movie, index) => ( <Card key={index} movie={movie} /> ))}
 
         <div className="col-12 d-flex flex-column flex-md-row my-4">
           <StyledButton onClick={() => dispatch({ type: INCREMENT })}>

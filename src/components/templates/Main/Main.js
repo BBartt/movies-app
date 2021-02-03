@@ -16,12 +16,16 @@ class Main extends Component {
     const { dispatch, morePosts, movies } = this.props;
 
     return (
-      <StyledWrapper as="main" className="container d-flex flex-wrap col-11 col-lg-10 mb-5">
-
+      <StyledWrapper
+        as="main"
+        className="container d-flex flex-wrap col-11 col-lg-10 mb-5"
+      >
         <div className="col-12 col-lg-8">
-          <StyledH1 title>Upcoming movies</StyledH1>
+          <StyledH1 title="true">Upcoming movies</StyledH1>
 
-          {movies.slice(0, morePosts).map(movie => ( <Card movie={movie} /> ))}
+          {movies.slice(0, morePosts).map((movie, index) => (
+            <Card key={index} movie={movie} />
+          ))}
 
           <StyledButton
             onClick={() => dispatch({ type: MORE_POSTS })}
@@ -34,7 +38,6 @@ class Main extends Component {
         <div className="col-12 col-lg-4 mt-5">
           <Aside />
         </div>
-
       </StyledWrapper>
     );
   }
