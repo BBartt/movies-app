@@ -12,6 +12,8 @@ import {
   fetchNowPlayingMovies,
 } from "features/movies/moviesActions";
 import { useDispatch, useSelector } from "react-redux";
+import { buildDetailsPath, joinImageUrl } from "utils";
+import { TMDB_IMAGE_BASE_URL } from "constants";
 
 const StyledContainerWrapper = styled.div`
   display: grid;
@@ -93,42 +95,32 @@ const Container = () => {
       <StyledH1 title="title">Movies Now Playing</StyledH1>
 
       <StyledContainerWrapper>
-        {movies_now_playing?.slice(0, 5).map((movie) => (
-          <StyledArticle key={movie.id}>
-            <NavLink
-              to={
-                routes.home +
-                `movieDetails/${encodeURIComponent(movie.original_title)}`
-              }
-              onClick={() => dispatch(fetchMovieDetails(movie.id))}
-            >
-              <StyledImg
-                src={(() => {
-                  if (movie.backdrop_path) {
-                    return `https://image.tmdb.org/t/p/original/${movie.backdrop_path}`;
-                  } else if (movie.poster_path) {
-                    return `https://image.tmdb.org/t/p/original/${movie.poster_path}`;
-                  } else {
-                    return pictures.imageNotFound;
-                  }
-                })()}
-                alt={movie.backdrop_path}
-              />
-            </NavLink>
-            <NavLink
-              to={
-                routes.home +
-                `movieDetails/${encodeURIComponent(movie.original_title)}`
-              }
-              onClick={() => dispatch(fetchMovieDetails(movie.id))}
-            >
-              <StyedFigcaption>
-                {movie.title} | User Rating: {movie.vote_average}/10
-                {movie.adult && <StyledSpan> | FOR ADULTS</StyledSpan>}
-              </StyedFigcaption>
-            </NavLink>
-          </StyledArticle>
-        ))}
+        {movies_now_playing?.slice(0, 5).map((movie) => {
+          const imageUrl =
+            joinImageUrl(TMDB_IMAGE_BASE_URL, movie.backdrop_path) ??
+            joinImageUrl(TMDB_IMAGE_BASE_URL, movie.poster_path) ??
+            pictures.imageNotFound;
+
+          return (
+            <StyledArticle key={movie.id}>
+              <NavLink
+                to={buildDetailsPath(routes.home, movie.original_title)}
+                onClick={() => dispatch(fetchMovieDetails(movie.id))}
+              >
+                <StyledImg src={imageUrl} alt={movie.backdrop_path} />
+              </NavLink>
+              <NavLink
+                to={buildDetailsPath(routes.home, movie.original_title)}
+                onClick={() => dispatch(fetchMovieDetails(movie.id))}
+              >
+                <StyedFigcaption>
+                  {movie.title} | User Rating: {movie.vote_average}/10
+                  {movie.adult && <StyledSpan> | FOR ADULTS</StyledSpan>}
+                </StyedFigcaption>
+              </NavLink>
+            </StyledArticle>
+          );
+        })}
       </StyledContainerWrapper>
     </StyledWrapper>
   );
