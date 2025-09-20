@@ -1,10 +1,10 @@
 export const routes = {
   home: "/",
   movies_app: "/movies-app",
-  category: "/category",
+  category: "/category/:categoryId",
   movieDetails: "/movieDetails/:id",
   about: "/about",
   contact: "/contact",
   article: "/article",
-  contest: "/contest"
+  contest: "/contest",
 };

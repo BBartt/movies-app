@@ -7,17 +7,20 @@ import Aside from "./Aside";
 import { StyledButton } from "components/atoms/StyledButton/StyledButton";
 import { StyledH1 } from "components/atoms/StyledH1/StyledH1";
 import { StyledWrapper } from "components/atoms/StyledWrapper/StyledWrapper";
-import { MORE_POSTS, fetchMovieCategory } from "actions";
 import Card from "components/organisms/Card/Card";
+import { fetchMoviesByCategory } from "features/movies/moviesActions";
+import { MORE_POSTS } from "features/ui/uiSlice";
 
 const Main = () => {
   const dispatch = useDispatch();
-  const movies = useSelector((state) => state.movies);
-  const morePosts = useSelector((state) => state.morePosts);
+  const movies = useSelector((state) => state.movies.movies);
+  const morePosts = useSelector((state) => state.ui.morePosts);
 
   useEffect(() => {
-    dispatch(fetchMovieCategory("movie/upcoming"));
+    dispatch(fetchMoviesByCategory("movie/upcoming"));
   }, [dispatch]);
+
+  if (!movies.length > 0) return null;
 
   return (
     <StyledWrapper

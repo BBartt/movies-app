@@ -4,11 +4,11 @@ import { StyledNavLink } from "components/atoms/StyledNavLink/StyledNavLink";
 import { StyledH1 } from "components/atoms/StyledH1/StyledH1";
 import { StyledWrapper } from "components/atoms/StyledWrapper/StyledWrapper";
 import { StyledImg } from "components/atoms/StyledImg/StyledImg";
-import { fetchMovieInfo } from "actions";
 import { pictures } from "assets/images/images";
 import { TMDB_IMAGE_BASE_URL } from "constants";
 import { buildDetailsPath, joinImageUrl } from "utils";
 import { routes } from "routes/routes";
+import { fetchMovieDetails } from "features/movies/moviesActions";
 
 const Card = ({ movie }) => {
   const dispatch = useDispatch();
@@ -41,7 +41,7 @@ const Card = ({ movie }) => {
 
       <StyledNavLink
         to={buildDetailsPath(routes.home, original_title)}
-        onClick={() => dispatch(fetchMovieInfo(id))}
+        onClick={() => dispatch(fetchMovieDetails(id))}
       >
         Read More
       </StyledNavLink>

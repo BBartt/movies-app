@@ -3,8 +3,8 @@ import { StyledWrapper } from "components/atoms/StyledWrapper/StyledWrapper";
 import { StyledH1 } from "components/atoms/StyledH1/StyledH1";
 import { StyledImg } from "components/atoms/StyledImg/StyledImg";
 import { pictures } from "assets/images/images";
-import { CHANGE_PLACEHOLDER } from "actions";
 import store from "store";
+import { CHANGE_PLACEHOLDER } from "features/ui/uiSlice";
 
 let words = [
   "attention",
@@ -13,7 +13,7 @@ let words = [
   "the real",
   "name of",
   "Slim Shady",
-  "#/contest"
+  "#/contest",
 ];
 
 class Contest extends Component {
@@ -25,10 +25,10 @@ class Contest extends Component {
     store.dispatch({ type: CHANGE_PLACEHOLDER });
   }
 
-  changePath = words => {
+  changePath = (words) => {
     for (var i = 0; i < words.length; i++) {
-      (function(i) {
-        setTimeout(function() {
+      (function (i) {
+        setTimeout(function () {
           window.history.pushState("", null, words[i]);
         }, 3000 * (i + 1));
       })(i);
@@ -42,18 +42,24 @@ class Contest extends Component {
         <StyledImg src={pictures.wally} />
         <StyledH1 title="title">have fun</StyledH1>
 
-        <StyledWrapper hasBorderRightBottom className="text-center my-5 h1 text-break">
+        <StyledWrapper
+          hasBorderRightBottom
+          className="text-center my-5 h1 text-break"
+        >
           gurcreevacntrfjvyyuryclbhsvaqlbhepnyyvatohgqbagorqhcrqphgqbjagurjbbqfgurlorreqbf
           <hr />
           16 32 35 34 31 41 53 36 45 56 46 43 52 45 54 21
         </StyledWrapper>
         <hr />
-        <StyledWrapper hasBorderRightBottom className="text-center my-5 display-4 text-break">
-          In order for the light to shine so brightly, the darkness must be present.
+        <StyledWrapper
+          hasBorderRightBottom
+          className="text-center my-5 display-4 text-break"
+        >
+          In order for the light to shine so brightly, the darkness must be
+          present.
           <hr />
           001011000101101000100001101101100101000100111
         </StyledWrapper>
-
       </StyledWrapper>
     );
   }

@@ -3,9 +3,9 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { routes } from "routes/routes";
 import { StyledImg } from "components/atoms/StyledImg/StyledImg";
-import { fetchMovieCategory } from "actions";
 import { StyledLinksSection } from "components/atoms/StyledLinksSection/StyledLinksSection";
 import { connect } from "react-redux";
+import { fetchMoviesByCategory } from "features/movies/moviesActions";
 
 const StyledAsideWrapper = styled.aside`
   @media (max-width: 992px) {
@@ -99,7 +99,7 @@ const Aside = ({ dispatch }) => (
       <ul>
         <li>
           <NavLink
-            onClick={() => dispatch(fetchMovieCategory("movie/popular"))}
+            onClick={() => dispatch(fetchMoviesByCategory("movie/popular"))}
             to={`${routes.category}/popular`}
           >
             Popular
@@ -107,7 +107,7 @@ const Aside = ({ dispatch }) => (
         </li>
         <li>
           <NavLink
-            onClick={() => dispatch(fetchMovieCategory("movie/top_rated"))}
+            onClick={() => dispatch(fetchMoviesByCategory("movie/top_rated"))}
             to={`${routes.category}/top_rated`}
           >
             Top Rated
@@ -115,7 +115,7 @@ const Aside = ({ dispatch }) => (
         </li>
         <li>
           <NavLink
-            onClick={() => dispatch(fetchMovieCategory("movie/upcoming"))}
+            onClick={() => dispatch(fetchMoviesByCategory("movie/upcoming"))}
             to={`${routes.category}/upcoming`}
           >
             Upcoming
