@@ -8,7 +8,6 @@ import { StyledLinksSection } from "components/atoms/StyledLinksSection/StyledLi
 import { connect } from "react-redux";
 
 const StyledAsideWrapper = styled.aside`
-
   @media (max-width: 992px) {
     &:before {
       content: "";
@@ -21,7 +20,7 @@ const StyledAsideWrapper = styled.aside`
     }
   }
 
-  .socials{
+  .socials {
     a {
       text-decoration: none;
       border-radius: 40px;
@@ -29,47 +28,57 @@ const StyledAsideWrapper = styled.aside`
       font-weight: bold;
       margin: 5px;
 
-      &:hover{ color: white !important; }
+      &:hover {
+        color: white !important;
+      }
 
       &:nth-child(1) {
         border: 2px solid #4267b2;
         color: #4267b2;
-        &:hover { background: #4267b2; }
+        &:hover {
+          background: #4267b2;
+        }
       }
 
       &:nth-child(2) {
         border: 2px solid #1da1f2;
         color: #1da1f2;
-        &:hover { background: #1da1f2; }
+        &:hover {
+          background: #1da1f2;
+        }
       }
 
       &:nth-child(3) {
-        border: 2px solid #F77737;
-        color: #F77737;
+        border: 2px solid #f77737;
+        color: #f77737;
         &:hover {
-          background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%););
+          background: radial-gradient(
+            circle at 30% 107%,
+            #fdf497 0%,
+            #fdf497 5%,
+            #fd5949 45%,
+            #d6249f 60%,
+            #285aeb 90%
+          );
         }
       }
 
       &:nth-child(4) {
         border: 2px solid #ffc200;
         color: #ffc200;
-        &:hover { background: #ffc200; }
+        &:hover {
+          background: #ffc200;
+        }
       }
-
     }
   }
-
 `;
 
 const Aside = ({ dispatch }) => (
   <StyledAsideWrapper className="text-center sticky-top">
     <section className="about">
       <h4>About</h4>
-      <StyledImg
-        src={"https://picsum.photos/300/300"}
-        alt="picture"
-      />
+      <StyledImg src={"https://picsum.photos/300/300"} alt="picture" />
       <p>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur
         accusamus neque quia aperiam, ab? Saepe quisquam similique
@@ -117,8 +126,8 @@ const Aside = ({ dispatch }) => (
   </StyledAsideWrapper>
 );
 
-const mapStateToProps = state => ({
-  dispatch: state.dispatch
+const mapStateToProps = (state) => ({
+  dispatch: state.dispatch,
 });
 
 export default connect(mapStateToProps)(Aside);
