@@ -1,3 +1,4 @@
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import {
   Navbar,
   Nav,
@@ -9,9 +10,8 @@ import {
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { routes } from "routes/routes";
-import { fetchGenres, fetchMoviesByGenre } from "features/movies/moviesActions";
+import { fetchGenres } from "features/movies/moviesActions";
 import { RESET_MORE_POSTS } from "features/ui/uiSlice";
-import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const StyledNavbarWrapper = styled(Navbar)`
@@ -20,7 +20,7 @@ const StyledNavbarWrapper = styled(Navbar)`
 `;
 
 const NavBar = () => {
-  const [value, setValue] = useState("");
+  const [searchValue, setSearchValue] = useState("");
   const dispatch = useDispatch();
 
   const movieGenreInfo = useSelector((state) => state.movies.movieGenreInfo);
@@ -30,34 +30,50 @@ const NavBar = () => {
     dispatch(fetchGenres());
   }, [dispatch]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
 
-    if (!changePlaceholder) {
-      value.toLowerCase() === "marshall mathers"
-        ? alert(`Congratulations --> ${value} <-- it is correnct answer`)
-        : alert(`Answer --> ${value} <-- is not correnct, try again`);
-      setValue("");
-      return;
+      if (!changePlaceholder) {
+        const isCorrect =
+          searchValue.trim().toLowerCase() === "marshall mathers";
+        alert(
+          isCorrect
+            ? `Congratulations --> ${searchValue} <-- it is correct answer`
+            : `Answer --> ${searchValue} <-- is not correct, try again`
+        );
+        setSearchValue("");
+        return;
+      }
+
+      window.open(
+        `https://www.themoviedb.org/search?query=${encodeURIComponent(
+          searchValue
+        )}&language=en-US`
+      );
+      setSearchValue("");
+    },
+    [searchValue, changePlaceholder]
+  );
+
+  const handleChange = useCallback((event) => {
+    setSearchValue(event.target.value);
+  }, []);
+
+  const genresDropdownItems = useMemo(() => {
+    if (!movieGenreInfo || !movieGenreInfo.length) {
+      return <li>GENRES NOT FOUND</li>;
     }
+    return movieGenreInfo.map((item) => (
+      <NavDropdown.Item key={item.id} as={NavLink} to={`/category/${item.id}`}>
+        {item.name}
+      </NavDropdown.Item>
+    ));
+  }, [movieGenreInfo]);
 
-    window.open(
-      `https://www.themoviedb.org/search?query=${value}&language=en-US`
-    );
-    setValue("");
-  };
-
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
-
-  const genresFound = movieGenreInfo?.map((item) => (
-    <NavDropdown.Item key={item.id} as={NavLink} to={`category/${item.id}`}>
-      {item.name}
-    </NavDropdown.Item>
-  ));
-
-  const genresNotFound = <li>GENRES NOT FOUND</li>;
+  const placeholderText = changePlaceholder
+    ? "Search in themoviedb database"
+    : "type name and surname here please";
 
   return (
     <StyledNavbarWrapper bg="dark" variant="dark" expand="md">
@@ -73,10 +89,10 @@ const NavBar = () => {
           </Nav.Link>
 
           <NavDropdown title="Movie Genres" id="basic-nav-dropdown">
-            {movieGenreInfo.length ? genresFound : genresNotFound}
+            {genresDropdownItems}
             <NavDropdown.Divider />
             <NavDropdown.Item as={NavLink} to={routes.contest}>
-              contest
+              Contest
             </NavDropdown.Item>
           </NavDropdown>
 
@@ -88,16 +104,12 @@ const NavBar = () => {
           </Nav.Link>
         </Nav>
 
-        <Form inline className="col-5" onSubmit={handleSubmit}>
+        <Form className="col-5 d-flex" onSubmit={handleSubmit}>
           <FormControl
             type="text"
-            placeholder={
-              changePlaceholder
-                ? "Search in themoviedb database"
-                : "type name and surname here please"
-            }
+            placeholder={placeholderText}
             className="mr-sm-2 col-8"
-            value={value}
+            value={searchValue}
             onChange={handleChange}
           />
           <Button type="submit" variant="outline-success">
