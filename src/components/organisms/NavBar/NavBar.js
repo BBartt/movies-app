@@ -1,129 +1,124 @@
-import React, { Component } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import {
   Navbar,
   Nav,
   Form,
   FormControl,
   Button,
-  NavDropdown
+  NavDropdown,
 } from "react-bootstrap";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { routes } from "routes/routes";
-import {
-  fetchMoviesGenresForNavBar,
-  fetchMoviesByGenre,
-  RESET_MORE_POSTS
-} from "actions";
-import { connect } from "react-redux";
+import { fetchGenres } from "features/movies/moviesActions";
+import { RESET_MORE_POSTS } from "features/ui/uiSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const StyledNavbarWrapper = styled(Navbar)`
   font-size: 2rem;
   padding: 15px;
 `;
 
-class NavBar extends Component {
-  state = {
-    value: ""
-  };
+const NavBar = () => {
+  const [searchValue, setSearchValue] = useState("");
+  const dispatch = useDispatch();
 
-  componentDidMount() {
-    this.props.dispatch(fetchMoviesGenresForNavBar());
-  }
+  const movieGenreInfo = useSelector((state) => state.movies.movieGenreInfo);
+  const changePlaceholder = useSelector((state) => state.ui.changePlaceholder);
 
-  handleSubmit = e => {
-    e.preventDefault();
-    let { value } = this.state;
-    let { changePlaceholder } = this.props;
+  useEffect(() => {
+    dispatch(fetchGenres());
+  }, [dispatch]);
 
-    if (!changePlaceholder) {
-      value.toLowerCase() === "marshall mathers"
-        ? alert(`Congratulations --> ${value} <-- it is correnct answer`)
-        : alert(`Answer --> ${value} <-- is not correnct, try again`);
-      this.setState({ value: "" });
-      return;
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+
+      if (!changePlaceholder) {
+        const isCorrect =
+          searchValue.trim().toLowerCase() === "marshall mathers";
+        alert(
+          isCorrect
+            ? `Congratulations --> ${searchValue} <-- it is correct answer`
+            : `Answer --> ${searchValue} <-- is not correct, try again`
+        );
+        setSearchValue("");
+        return;
+      }
+
+      window.open(
+        `https://www.themoviedb.org/search?query=${encodeURIComponent(
+          searchValue
+        )}&language=en-US`
+      );
+      setSearchValue("");
+    },
+    [searchValue, changePlaceholder]
+  );
+
+  const handleChange = useCallback((event) => {
+    setSearchValue(event.target.value);
+  }, []);
+
+  const genresDropdownItems = useMemo(() => {
+    if (!movieGenreInfo || !movieGenreInfo.length) {
+      return <li>GENRES NOT FOUND</li>;
     }
-
-    window.open(
-      `https://www.themoviedb.org/search?query=${value}&language=en-US`
-    );
-    this.setState({ value: "" });
-  };
-
-  handleChange = event => {
-    this.setState({ value: event.target.value });
-  };
-
-  render() {
-    const { movieGenreInfo, dispatch } = this.props;
-    const genresFound = movieGenreInfo.map(item => (
-      <NavDropdown.Item
-        key={item.id}
-        as={NavLink}
-        to={`${routes.category}/${item.id}`}
-        onClick={() => dispatch(fetchMoviesByGenre(item))}
-      >
+    return movieGenreInfo.map((item) => (
+      <NavDropdown.Item key={item.id} as={NavLink} to={`/category/${item.id}`}>
         {item.name}
       </NavDropdown.Item>
     ));
+  }, [movieGenreInfo]);
 
-    const genresNotFound = <li>GENRES NOT FOUND</li>;
+  const placeholderText = changePlaceholder
+    ? "Search in themoviedb database"
+    : "type name and surname here please";
 
-    return (
-      <StyledNavbarWrapper bg="dark" variant="dark" expand="md">
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
-            <Nav.Link
-              as={NavLink}
-              to={routes.movies_app}
-              onClick={() => dispatch({ type: RESET_MORE_POSTS })}
-            >
-              Home
-            </Nav.Link>
+  return (
+    <StyledNavbarWrapper bg="dark" variant="dark" expand="md">
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="mr-auto">
+          <Nav.Link
+            as={NavLink}
+            to={routes.movies_app}
+            onClick={() => dispatch({ type: RESET_MORE_POSTS })}
+          >
+            Home
+          </Nav.Link>
 
-            <NavDropdown title="Movie Genres" id="basic-nav-dropdown">
-              {movieGenreInfo.length ? genresFound : genresNotFound}
-              <NavDropdown.Divider />
-              <NavDropdown.Item as={NavLink} to={routes.contest}>
-                contest
-              </NavDropdown.Item>
-            </NavDropdown>
+          <NavDropdown title="Movie Genres" id="basic-nav-dropdown">
+            {genresDropdownItems}
+            <NavDropdown.Divider />
+            <NavDropdown.Item as={NavLink} to={routes.contest}>
+              Contest
+            </NavDropdown.Item>
+          </NavDropdown>
 
-            <Nav.Link as={NavLink} to={routes.about}>
-              About
-            </Nav.Link>
-            <Nav.Link as={NavLink} to={routes.contact}>
-              Contact
-            </Nav.Link>
-          </Nav>
+          <Nav.Link as={NavLink} to={routes.about}>
+            About
+          </Nav.Link>
+          <Nav.Link as={NavLink} to={routes.contact}>
+            Contact
+          </Nav.Link>
+        </Nav>
 
-          <Form inline className="col-5" onSubmit={this.handleSubmit}>
-            <FormControl
-              type="text"
-              placeholder={
-                this.props.changePlaceholder
-                  ? "Search in themoviedb database"
-                  : "type name and surname here please"
-              }
-              className="mr-sm-2 col-8"
-              value={this.state.value}
-              onChange={this.handleChange}
-            />
-            <Button type="submit" variant="outline-success">
-              Search
-            </Button>
-          </Form>
-        </Navbar.Collapse>
-      </StyledNavbarWrapper>
-    );
-  }
-}
+        <Form className="col-5 d-flex" onSubmit={handleSubmit}>
+          <FormControl
+            type="text"
+            placeholder={placeholderText}
+            className="mr-sm-2 col-8"
+            value={searchValue}
+            onChange={handleChange}
+          />
+          <Button type="submit" variant="outline-success">
+            Search
+          </Button>
+        </Form>
+      </Navbar.Collapse>
+    </StyledNavbarWrapper>
+  );
+};
 
-const mapStateToProps = state => ({
-  movieGenreInfo: state.movieGenreInfo,
-  changePlaceholder: state.changePlaceholder,
-  dispatch: state.dispatch
-});
-
-export default connect(mapStateToProps)(NavBar);
+export default NavBar;

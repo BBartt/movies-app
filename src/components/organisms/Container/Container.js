@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { routes } from "routes/routes";
@@ -7,8 +7,13 @@ import { StyledWrapper } from "components/atoms/StyledWrapper/StyledWrapper";
 import { StyledH1 } from "components/atoms/StyledH1/StyledH1";
 import { StyledSpan } from "components/atoms/StyledSpan/StyledSpan";
 import { StyledImg } from "components/atoms/StyledImg/StyledImg";
-import { connect } from "react-redux";
-import { fetchMovieNowPlaying, fetchMovieInfo } from "actions";
+import {
+  fetchMovieDetails,
+  fetchNowPlayingMovies,
+} from "features/movies/moviesActions";
+import { useDispatch, useSelector } from "react-redux";
+import { buildDetailsPath, joinImageUrl } from "utils";
+import { TMDB_IMAGE_BASE_URL } from "constants";
 
 const StyledContainerWrapper = styled.div`
   display: grid;
@@ -75,47 +80,38 @@ const StyedFigcaption = styled.figcaption`
   opacity: 0;
 `;
 
-class Container extends Component {
-  componentDidMount() {
-    this.props.dispatch(fetchMovieNowPlaying());
-  }
+const Container = () => {
+  const dispatch = useDispatch();
+  const movies_now_playing = useSelector(
+    (state) => state.movies.moviesNowPlaying
+  );
 
-  render() {
-    const { movies_now_playing, dispatch } = this.props;
+  useEffect(() => {
+    dispatch(fetchNowPlayingMovies());
+  }, [dispatch]);
 
-    return (
-      <StyledWrapper className="container col-12 col-lg-11 my-5">
-        <StyledH1 title="title">Movies Now Playing</StyledH1>
+  return (
+    <StyledWrapper className="container col-12 col-lg-11 my-5">
+      <StyledH1 title="title">Movies Now Playing</StyledH1>
 
-        <StyledContainerWrapper>
-          {movies_now_playing.slice(0, 5).map(movie => (
+      <StyledContainerWrapper>
+        {movies_now_playing?.slice(0, 5).map((movie) => {
+          const imageUrl =
+            joinImageUrl(TMDB_IMAGE_BASE_URL, movie.backdrop_path) ??
+            joinImageUrl(TMDB_IMAGE_BASE_URL, movie.poster_path) ??
+            pictures.imageNotFound;
+
+          return (
             <StyledArticle key={movie.id}>
               <NavLink
-                to={
-                  routes.home +
-                  `movieDetails/${encodeURIComponent(movie.original_title)}`
-                }
-                onClick={() => dispatch(fetchMovieInfo(movie.id))}
+                to={buildDetailsPath(routes.home, movie.original_title)}
+                onClick={() => dispatch(fetchMovieDetails(movie.id))}
               >
-                <StyledImg
-                  src={(() => {
-                    if (movie.backdrop_path) {
-                      return `https://image.tmdb.org/t/p/original/${movie.backdrop_path}`;
-                    } else if (movie.poster_path) {
-                      return `https://image.tmdb.org/t/p/original/${movie.poster_path}`;
-                    } else {
-                      return pictures.imageNotFound;
-                    }
-                  })()}
-                  alt={movie.backdrop_path}
-                />
+                <StyledImg src={imageUrl} alt={movie.backdrop_path} />
               </NavLink>
               <NavLink
-                to={
-                  routes.home +
-                  `movieDetails/${encodeURIComponent(movie.original_title)}`
-                }
-                onClick={() => dispatch(fetchMovieInfo(movie.id))}
+                to={buildDetailsPath(routes.home, movie.original_title)}
+                onClick={() => dispatch(fetchMovieDetails(movie.id))}
               >
                 <StyedFigcaption>
                   {movie.title} | User Rating: {movie.vote_average}/10
@@ -123,15 +119,11 @@ class Container extends Component {
                 </StyedFigcaption>
               </NavLink>
             </StyledArticle>
-          ))}
-        </StyledContainerWrapper>
-      </StyledWrapper>
-    );
-  }
-}
+          );
+        })}
+      </StyledContainerWrapper>
+    </StyledWrapper>
+  );
+};
 
-const mapStateToProps = state => ({
-  movies_now_playing: state.movies_now_playing
-});
-
-export default connect(mapStateToProps)(Container);
+export default Container;

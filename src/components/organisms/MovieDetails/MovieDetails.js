@@ -4,7 +4,7 @@ import { pictures } from "assets/images/images";
 import { StyledWrapper } from "components/atoms/StyledWrapper/StyledWrapper";
 import { StyledImg } from "components/atoms/StyledImg/StyledImg";
 import { StyledH1 } from "components/atoms/StyledH1/StyledH1";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 
 const StykedMovieWrapper = styled(StyledWrapper)`
   display: -webkit-flex;
@@ -12,33 +12,36 @@ const StykedMovieWrapper = styled(StyledWrapper)`
   display: flex;
   flex-direction: column;
 
-  .movieNumbers div, figcaption{
+  .movieNumbers div,
+  figcaption {
     border-right: 2px solid brown;
     border-left: 2px solid brown;
     padding: 0px 10px;
   }
 
-  .movieNumbers{
+  .movieNumbers {
     display: -webkit-flex;
     display: -ms-flex;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    @media (min-width: 992px) { flex-direction: row; }
+    @media (min-width: 992px) {
+      flex-direction: row;
+    }
   }
 
-  .wrapper{
+  .wrapper {
     display: -webkit-flex;
     display: -ms-flex;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
 
-    .details{
-      ul{
+    .details {
+      ul {
         padding: 0;
         margin: 0;
-        li{
+        li {
           border-bottom: 2px solid brown;
           list-style-type: none;
           width: fit-content;
@@ -46,29 +49,43 @@ const StykedMovieWrapper = styled(StyledWrapper)`
       }
     }
 
-    .links{ margin-top: 40px; }
+    .links {
+      margin-top: 40px;
+    }
 
-    @media (min-width: 768px) { flex-direction: row; }
-
+    @media (min-width: 768px) {
+      flex-direction: row;
+    }
   }
-
 `;
 
-const MoviesDetails = ({ movieInfo }) => {
+const MoviesDetails = () => {
+  const dispatch = useDispatch();
+  const movieInfo = useSelector((state) => state.movies.movieInfo);
+
+  if (movieInfo === null) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <StykedMovieWrapper hasBorderRightBottom className="container col-12 col-lg-10 my-4 mx-auto">
+    <StykedMovieWrapper
+      hasBorderRightBottom
+      className="container col-12 col-lg-10 my-4 mx-auto"
+    >
       <StyledImg
         src={(() => {
-          if (movieInfo.backdrop_path) {
+          if (movieInfo?.backdrop_path) {
             return `https://image.tmdb.org/t/p/original/${movieInfo.backdrop_path}`;
-          } else if (movieInfo.poster_path) {
+          } else if (movieInfo?.poster_path) {
             return `https://image.tmdb.org/t/p/original/${movieInfo.poster_path}`;
-          } else { return pictures.imageNotFound; }
+          } else {
+            return pictures.imageNotFound;
+          }
         })()}
         alt={movieInfo.original_title}
       />
-      {movieInfo.length !== 0 &&
-        (<>
+      {movieInfo.length !== 0 && (
+        <>
           <StyledH1 title="true">{movieInfo.title}</StyledH1>
           <section className="movieNumbers my-4">
             <div>Runtime: {movieInfo.runtime} min</div>
@@ -90,7 +107,8 @@ const MoviesDetails = ({ movieInfo }) => {
             <section className="links">
               <h2>Links:</h2>
               <a href={`https://www.imdb.com/title/${movieInfo.imdb_id}`}>
-                SEE MORE ON <StyledImg imdb src={pictures.imdb} alt="imdb" /> SITE
+                SEE MORE ON <StyledImg imdb src={pictures.imdb} alt="imdb" />{" "}
+                SITE
               </a>
               {movieInfo.homepage && (
                 <>
@@ -100,14 +118,10 @@ const MoviesDetails = ({ movieInfo }) => {
               )}
             </section>
           </section>
-        </>)
-      }
+        </>
+      )}
     </StykedMovieWrapper>
   );
 };
 
-const mapStateToProps = state => ({
-  movieInfo: state.movieInfo
-});
-
-export default connect(mapStateToProps)(MoviesDetails);
+export default MoviesDetails;
